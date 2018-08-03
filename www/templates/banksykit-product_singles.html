@@ -1,0 +1,68 @@
+	<ion-view view-title=" {{ product.name }}" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top"  scroll="true"   id="page-product_singles" class="page-product_singles">
+		
+			<ion-refresher pulling-text="Pull to refresh..."  on-refresh="doRefresh()"></ion-refresher>
+			<div class="tabs tabs-colorful tabs-icon-top static">
+				<a ng-click="$ionicGoBack()" class="tab-item">
+					<i class="icon ion-ios-albums-outline"></i> {{ 'List' | translate }}
+				</a>
+				<a class="tab-item tab-item-active active">
+					<i class="icon ion-ios-list-outline"></i> {{ 'Detail' | translate }}
+				</a>
+				</div>
+			<div class="list ">
+
+					<!-- heading-1 -->
+					<div class="item item-divider"  ng-bind-html="product.name | to_trusted">{{product.name}}</div>
+					<!-- ./heading-1 -->
+
+					<!-- slidebox -->
+					<div class="item item-text-wrap noborder to_trusted">
+					<div class="slideshow_container to_trusted" ng-if="product.image_slidebox" >
+							<ion-slides options="{slidesPerView:1}" slider="data.slider" class="slideshow">
+								<ion-slide-page class="slideshow-item" ng-repeat="slide_item in product.image_slidebox | strExplode:'|' track by $index" >
+									<div class="item-text-wrap" ng-bind-html="slide_item | to_trusted"></div>
+								</ion-slide-page>
+							</ion-slides>
+					</div>
+					</div>
+					<!-- ./slidebox -->
+
+					<!-- to_trusted -->
+					<div class="item item-text-wrap noborder to_trusted {{ fontsize }}" ng-bind-html="product.description | strHTML"></div>
+					<!-- ./to_trusted -->
+
+					<!-- to_trusted -->
+					<div class="item item-text-wrap noborder to_trusted {{ fontsize }}" ng-bind-html="product.price_html | strHTML"></div>
+					<!-- ./to_trusted -->
+
+					<!-- text -->
+					<div class="item item-text-wrap"><span class="subdued" >{{product.price}}</span></div>
+					<!-- ./text -->
+
+					<!-- rating -->
+					<div class="item noborder text-right"><rating ng-model="product.average_rating" max="rating.max"></rating></div>
+					<!-- ./rating -->
+
+					<!-- share_link -->
+					<div class="item">
+						<button run-social-sharing message="{{ product.permalink }}" class="button button-small ion-android-share-alt button-outline button-positive icon-left">Social Share</button>
+					</div>
+					<!-- ./share_link -->
+
+					<!-- webview -->
+					<div class="item item-button"><button class="button button-colorful ink-dark" ng-click="openWebView(product.permalink)">Buy Now</button></div>
+					<!-- ./webview -->
+			</div>
+			<div class="list">
+				<div class="item tabs tabs-secondary tabs-icon-left tabs-stable">
+					<a class="tab-item" ng-href="#/banksykit/product_cart"><i class="icon ion-android-cart"></i> {{ 'Shopping Cart' | translate }} ( {{ item_in_virtual_table_product }} )</a>
+					<a class="tab-item" ng-click="addToDbVirtual(product);"><i class="icon ion-android-add-circle"></i> {{ 'Add To Cart' | translate }}</a>
+				</div>
+			</div>
+			<br/><br/><br/>
+
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>

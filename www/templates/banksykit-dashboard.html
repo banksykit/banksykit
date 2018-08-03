@@ -1,0 +1,70 @@
+	<ion-view view-title=" Dashboard" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top"   id="page-dashboard" class=" page-dashboard">
+		   
+<!-- code slide hero -->
+<div class="assertive-900-bg slide-box-hero" ng-controller="productsCtrl">
+	<ion-slides class="slide-box-hero-content" options="{slidesPerView:1,autoplay:10000,loop:1}" slider="data.slider">
+		<ion-slide-page class="slide-box-hero-item" ng-repeat="item in data_products | limitTo : 10:0" >
+		<div class="slide-box-hero-container" style="background: url('{{item.featured.large}}') no-repeat center center;">
+			<div class="padding caption">
+				<h2 ng-bind-html="item.name | strHTML"></h2>
+				<a ng-href="#/banksykit/product_singles/{{item.id}}">Chi tiết</a>
+			</div>
+		</div>
+		</ion-slide-page>
+	</ion-slides>
+</div>
+<!-- ./code slide hero -->
+
+<!-- listing categories -->
+<a ng-href="#/banksykit/categories" class="tags-heroes-title light-bg dark">Danh mục <i class="pull-right icon ion-chevron-right"></i></a>
+<div class="light-bg" ng-controller="categoriesCtrl">
+	<div class="tags-heroes-content list">
+		<div class="row">
+			<div ng-repeat="item in data_categories | limitTo:2:0" class="col" ng-class="$index ? 'col-33':'col-67'" ><a href="#/banksykit/products/{{item.id}}" class="button button-small button-full ink" ng-class="{'button-assertive' : $index}">{{item.name}}</a></div>
+		</div>
+		<div class="row">
+			<div ng-repeat="item in data_categories | limitTo:2:2" class="col" ng-class="$index ? 'col-66':'col-33'" ><a href="#/banksykit/products/{{item.id}}" class="button button-small button-full ink" ng-class="$index ? 'button-stable' : 'button-energized'" >{{item.name}}</a></div>
+		</div>
+		<div class="row">
+			<div ng-repeat="item in data_categories | limitTo:2:4" class="col" ng-class="$index ? 'col-33':'col-67'" ><a href="#/banksykit/products/{{item.id}}" class="button button-small button-full ink" ng-class="{'button-royal' : $index}">{{item.name}}</a></div>
+		</div>
+	</div>
+</div>
+<!-- ./listing categories -->
+
+
+<!-- listing products -->
+<a ng-href="#/banksykit/products/-1" class="tags-heroes-title light-bg dark">Sản phẩm <i class="pull-right icon ion-chevron-right"></i></a>
+<div class="light-bg" ng-init="var_products={}">
+    <div ng-controller="productsCtrl">
+        <span ng-repeat="item_product in data_products" ng-init="var_products[$index]=item_product"></span>
+    </div>
+
+    <div ng-repeat="item in var_products | limitTo : 16:0">
+        <a class="item item-thumbnail-left" href="#/banksykit/product_singles/{{ item.id }}">
+            <img ng-src="{{ item.featured.large }}">
+            <h2 ng-bind-html="item.name | strHTML"></h2>
+            <span class="calm">{{ item.price | currency:"đ.":0 }}</span> 
+        </a>
+    </div>
+ 
+</div>
+<!-- ./listing products -->
+
+<div class="dark-bg stable">
+       <div class="padding text-center">&copy KIT Tech, 2018</div> 
+</div>
+
+<br/>
+<br/> 
+<br/>
+<br/> 
+<br/>
+
+       
+    
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>
